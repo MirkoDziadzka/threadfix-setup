@@ -77,6 +77,13 @@ test -d "${THREADFIX_INSTALL_DIR}" || exit 1
 
 cp -v "${THREADFIX_WAR}" "${THREADFIX_INSTALL_DIR}"/tomcat/webapps/threadfix.war
 
+#
+# for testing, we need a known API key in the database. So add it here.
+cat >> "${THREADFIX_INSTALL_DIR}"/database/threadfix.script <<EOT
+INSERT INTO APIKEY VALUES(1,TRUE,'2014-09-17 00:00:00.000000000','2014-09-17 00:00:00.00','APIKEYFORTESTxAPIKEYFORTESTxAPIKEYFORTESTx',FALSE,NULL)
+EOT
+
+
 exit 0
 
 
