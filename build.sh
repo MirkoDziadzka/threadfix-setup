@@ -31,13 +31,13 @@ test -d "${MAVENDIR}" || exit 1
 export M2_HOME="${MAVENDIR}"
 export M2=$M2_HOME/bin
 
-PATH=${MS}:$PATH
+PATH=${M2}:$PATH
 
 #
 # Download threadfix
 #
 
-THREADFIX_SOURCE="${CACHE}/$threadfix-source"
+THREADFIX_SOURCE="${CACHE}/threadfix-source"
 THREADFIX_WAR="${BUILD}/threadfix.war"
 THREADFIX_INSTALL_DIR="${ROOT}/Threadfix"
 THREADFIX_INSTALL_ZIP="${CACHE}/ThreadFix_2.1M2.zip"
