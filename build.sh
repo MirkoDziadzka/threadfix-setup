@@ -65,7 +65,7 @@ test -d "${THREADFIX_SOURCE}" || exit 1
 
 rm -rf "${THREADFIX_INSTALL_DIR}"
 if [ ! -f "${THREADFIX_INSTALL_ZIP}" ] ; then
-    if [ -z "${EXT_DEP_CACHE_DIR}" ] ; then
+    if [ -n "${EXT_DEP_CACHE_DIR}" ] ; then
         (svn update "${EXT_DEP_CACHE_DIR}" && cp -v "${EXT_DEP_CACHE_DIR}/ThreadFix_2.1M2.zip" "${THREADFIX_INSTALL_ZIP}")
     else
         svn export http://svn.r.lab.nbttech.com/svn/wod/external/ThreadFix_2.1M2.zip "${THREADFIX_INSTALL_ZIP}"
