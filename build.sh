@@ -5,8 +5,8 @@ ROOT=$(cd $(dirname "$0") && pwd)
 CACHE="${ROOT}/cache"
 BUILD="${ROOT}/build"
 
-REPOSITORY=https://github.com/riverbed/threadfix.git
-BRANCH=riverbed-waf
+REPOSITORY=https://github.com/denimgroup/threadfix.git
+BRANCH=2.1final
 
 #
 # preparation
@@ -48,15 +48,11 @@ THREADFIX_INSTALL_ZIP="${CACHE}/ThreadFix_2.1M2.zip"
 rm -f "${THREADFIX_WAR}"
 
 if [ -d "${THREADFIX_SOURCE}" ] ; then
-    (cd "${THREADFIX_SOURCE}" && git remote set-url origin "${REPOSITORY}" && git checkout "${BRANCH}" && git pull)
+    (cd "${THREADFIX_SOURCE}" && git remote set-url origin "${REPOSITORY}" && git pull origin "${BRANCH}" && git checkout "${BRANCH}" && git pull)
 else
     git clone -b "${BRANCH}"  "${REPOSITORY}" "${THREADFIX_SOURCE}"
 fi
 test -d "${THREADFIX_SOURCE}" || exit 1
-
-# the following two lines are a hack to avoid https://github.com/denimgroup/threadfix/issues/571
-(cd ${THREADFIX_SOURCE} && mvn clean package)
-(cd ${THREADFIX_SOURCE}/threadfix-main && mvn clean package)
 
 # build 
 (cd ${THREADFIX_SOURCE} && mvn clean install &&  mv "threadfix-main/target/threadfix-2.1-SNAPSHOT.war" "${THREADFIX_WAR}")
