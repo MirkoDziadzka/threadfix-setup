@@ -47,10 +47,15 @@ rm -f "${THREADFIX_WAR}"
 if [ -d "${THREADFIX_SOURCE}" ] ; then
     (cd "${THREADFIX_SOURCE}" && git checkout riverbed-waf && git pull)
 else
-    git clone -b riverbed-waf --single-branch https://github.com/MirkoDziadzka/threadfix.git "${THREADFIX_SOURCE}"
+    git clone -b riverbed-waf --single-branch https://github.com/riverbed/threadfix.git "${THREADFIX_SOURCE}"
 fi
 test -d "${THREADFIX_SOURCE}" || exit 1
 
+# the following two lines are a hack to avoid https://github.com/denimgroup/threadfix/issues/571
+(cd ${THREADFIX_SOURCE} && mvn clean package)
+(cd ${THREADFIX_SOURCE}/threadfix-main && mvn clean package)
+
+# build 
 (cd ${THREADFIX_SOURCE} && mvn clean package &&  mv "threadfix-main/target/threadfix-2.1-SNAPSHOT.war" "${THREADFIX_WAR}")
 
 
