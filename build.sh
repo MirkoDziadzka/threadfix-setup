@@ -5,8 +5,8 @@ ROOT=$(cd $(dirname "$0") && pwd)
 CACHE="${ROOT}/cache"
 BUILD="${ROOT}/build"
 
-REPOSITORY=https://github.com/denimgroup/threadfix.git
-BRANCH=2.1final
+REPOSITORY="https://github.com/denimgroup/threadfix.git"
+BRANCH="2.1final"
 
 #
 # preparation
