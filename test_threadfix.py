@@ -166,7 +166,7 @@ class Threadfix(BaseClass):
 
     def upload_waf_log(self, waf_id, filename):
         logdata = open(filename, "r").read()
-        path = path = "/".join((self.__api_prefix, 'wafs', str(app_id), 'uploadLog'))
+        path = path = "/".join((self.__api_prefix, 'wafs', str(waf_id), 'uploadLog'))
         r = requests.post(path, params = {'apiKey' :  self.__api_key}, files = {'file' : logdata}, headers = {'Accept': 'application/json'}, auth = lambda x : x, verify = False)
         if r.status_code != 200:
             raise HttpError(r.status_code)
@@ -190,7 +190,11 @@ if __name__ == '__main__':
     #print t.get("wafs/1/rules/app/-1")
     #print t.get_waf_rules(2)
     app_id =  t.create_application("test-team", "test-app")
-    waf_id =  t.create_waf("test-waf")
+    app_id =  t.create_application("test-team", "test-app2")
+    app_id =  t.create_application("test-team", "test-app3")
+    app_id =  t.create_application("test-team2", "test-app4")
+    waf_id =  t.create_waf("test-waf", waf_type = "Snort")
+    waf_id =  t.create_waf("test-waf1")
     assert t.set_waf(app_id, waf_id) == app_id
     #print t.get_url("wafs")
     for filename in glob.glob(os.path.join('Threadfix', 'test-scans', '*.xml')):
